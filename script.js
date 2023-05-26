@@ -3,8 +3,8 @@ let numberB;
 let operator;
 let numberToDisplay = "";
 let displaySection = document.querySelector(".display");
-let digitButtons = document.querySelector(".digits").querySelectorAll("*");
-let operatorButtons = document.querySelector(".operators").querySelectorAll("*");
+let digitButtons = document.querySelector(".digits").querySelectorAll("button");
+let operatorButtons = document.querySelector(".operators").querySelectorAll("button");
 let equalButton = document.querySelector(".equal");
 
 digitButtons.forEach(digitButton => digitButton.addEventListener("click", displayDigit));
@@ -17,16 +17,20 @@ operatorButtons.forEach(operatorButton => {
 equalButton.addEventListener("click", equalEvent);
 
 function displayDigit() {
+  if(numberA && !operator) {
+    numberToDisplay="";
+    numberA = 0;
+  }
   numberToDisplay += this.textContent;
   displaySection.textContent = numberToDisplay;
 }
 
 function operationEvent() {
-  if(!numberA) {
-    displaySection.textContent = "";
+  if(!numberA || !operator) {
     numberA = +numberToDisplay;
-    numberToDisplay = ""; 
     operator = this.textContent;
+    numberToDisplay = "";
+    return;
   }
 
   numberB = +numberToDisplay;
@@ -37,13 +41,15 @@ function operationEvent() {
 }
 
 function equalEvent() {
-  displaySection.textContent= "";
+  if (!operator || !numberToDisplay) return;
+
   numberB = +numberToDisplay;
-  displaySection.textContent = operate(numberA,numberB,operator);
-  numberA = 0;
+  numberA = operate(numberA, numberB, operator);
+  displaySection.textContent = numberA;
+  numberToDisplay = numberA.toString();
+  operator = "";
   numberB = 0;
-  numberToDisplay = "";
-}
+}    
 
 function add(numberA, numberB){
   return numberA+numberB;
