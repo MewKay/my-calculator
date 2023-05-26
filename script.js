@@ -22,16 +22,27 @@ function displayDigit() {
 }
 
 function operationEvent() {
-  displaySection.textContent = "";
-  numberA = +numberToDisplay;
-  numberToDisplay = ""; 
+  if(!numberA) {
+    displaySection.textContent = "";
+    numberA = +numberToDisplay;
+    numberToDisplay = ""; 
+    operator = this.textContent;
+  }
+
+  numberB = +numberToDisplay;
+  numberA = operate(numberA,numberB,operator);
   operator = this.textContent;
+  displaySection.textContent = numberA;
+  numberToDisplay = "";
 }
 
 function equalEvent() {
   displaySection.textContent= "";
   numberB = +numberToDisplay;
   displaySection.textContent = operate(numberA,numberB,operator);
+  numberA = 0;
+  numberB = 0;
+  numberToDisplay = "";
 }
 
 function add(numberA, numberB){
