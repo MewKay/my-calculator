@@ -46,5 +46,10 @@ function divide(numberA,numberB){
 }
 
 function operate(numberA,numberB,operator){
-  add(numberA,numberB);
+ if(!operator) return;
+
+ if(operator === "+") return add(numberA,numberB);
+ else if (operator === "-") return substract(numberA,numberB);
+ else if (operator === "*") return multiply(numberA,numberB);
+ else if (operator === "/") return divide(numberA,numberB);
 }
