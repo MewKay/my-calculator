@@ -6,6 +6,7 @@ let displaySection = document.querySelector(".display");
 let digitButtons = document.querySelector(".digits").querySelectorAll("button");
 let operatorButtons = document.querySelector(".operators").querySelectorAll("button");
 let equalButton = document.querySelector(".equal");
+let clearButton = document.querySelector(".clear");
 
 digitButtons.forEach(digitButton => digitButton.addEventListener("click", displayDigit));
 
@@ -15,6 +16,8 @@ operatorButtons.forEach(operatorButton => {
 });
 
 equalButton.addEventListener("click", equalEvent);
+
+clearButton.addEventListener("click", clearAll);
 
 function displayDigit() {
   if(numberA && !operator) {
@@ -50,6 +53,14 @@ function equalEvent() {
   operator = "";
   numberB = 0;
 }    
+
+function clearAll() {
+  numberA = 0;
+  numberB = 0;
+  operator = "";
+  numberToDisplay = ""
+  displaySection.textContent = "0";
+}
 
 function add(numberA, numberB){
   return numberA+numberB;
