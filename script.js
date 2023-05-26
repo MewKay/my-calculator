@@ -4,14 +4,29 @@ let operator;
 let numberToDisplay = "";
 let displaySection = document.querySelector(".display");
 let digits = document.querySelectorAll(".digits");
+let operators = document.querySelectorAll(".operators");
 
 digits.forEach(digit => digit.addEventListener("click", function (e) {
-  display(e.target);
+  displayDigit(e.target);
 }));
 
-function display(digitButton) {
+operators.forEach(operator => {
+  if(!operator.classList.contains("clear") && !operator.classList.contains("equal"))
+    operator.addEventListener("click", function (e) {
+      handleOperation(e.target);
+    })
+});
+
+function displayDigit(digitButton) {
   numberToDisplay += digitButton.textContent;
   displaySection.textContent = numberToDisplay;
+}
+
+function handleOperation(operatorButton) {
+  displaySection.textContent = "";
+  numberA = +numberToDisplay;
+  numberToDisplay = ""; 
+  operator = operatorButton.textContent;
 }
 
 function add(numberA, numberB){
