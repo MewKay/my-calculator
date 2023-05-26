@@ -3,30 +3,26 @@ let numberB;
 let operator;
 let numberToDisplay = "";
 let displaySection = document.querySelector(".display");
-let digits = document.querySelectorAll(".digits");
-let operators = document.querySelectorAll(".operators");
+let digitButtons = document.querySelector(".digits").querySelectorAll("*");
+let operatorButtons = document.querySelector(".operators").querySelectorAll("*");
 
-digits.forEach(digit => digit.addEventListener("click", function (e) {
-  displayDigit(e.target);
-}));
+digitButtons.forEach(digitButton => digitButton.addEventListener("click", displayDigit));
 
-operators.forEach(operator => {
-  if(!operator.classList.contains("clear") && !operator.classList.contains("equal"))
-    operator.addEventListener("click", function (e) {
-      handleOperation(e.target);
-    })
+operatorButtons.forEach(operatorButton => {
+  if(!operatorButton.classList.contains("clear") && !operatorButton.classList.contains("equal"))
+    operatorButton.addEventListener("click", handleOperation)
 });
 
-function displayDigit(digitButton) {
-  numberToDisplay += digitButton.textContent;
+function displayDigit() {
+  numberToDisplay += this.textContent;
   displaySection.textContent = numberToDisplay;
 }
 
-function handleOperation(operatorButton) {
+function handleOperation() {
   displaySection.textContent = "";
   numberA = +numberToDisplay;
   numberToDisplay = ""; 
-  operator = operatorButton.textContent;
+  operator = this.textContent;
 }
 
 function add(numberA, numberB){
