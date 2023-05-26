@@ -5,24 +5,33 @@ let numberToDisplay = "";
 let displaySection = document.querySelector(".display");
 let digitButtons = document.querySelector(".digits").querySelectorAll("*");
 let operatorButtons = document.querySelector(".operators").querySelectorAll("*");
+let equalButton = document.querySelector(".equal");
 
 digitButtons.forEach(digitButton => digitButton.addEventListener("click", displayDigit));
 
 operatorButtons.forEach(operatorButton => {
   if(!operatorButton.classList.contains("clear") && !operatorButton.classList.contains("equal"))
-    operatorButton.addEventListener("click", handleOperation)
+    operatorButton.addEventListener("click", operationEvent);
 });
+
+equalButton.addEventListener("click", equalEvent);
 
 function displayDigit() {
   numberToDisplay += this.textContent;
   displaySection.textContent = numberToDisplay;
 }
 
-function handleOperation() {
+function operationEvent() {
   displaySection.textContent = "";
   numberA = +numberToDisplay;
   numberToDisplay = ""; 
   operator = this.textContent;
+}
+
+function equalEvent() {
+  displaySection.textContent= "";
+  numberB = +numberToDisplay;
+  displaySection.textContent = operate(numberA,numberB,operator);
 }
 
 function add(numberA, numberB){
