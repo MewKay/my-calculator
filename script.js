@@ -59,6 +59,7 @@ function operationHandler() {
 
   numberB = +numberToDisplay;
   numberA = operate(numberA, numberB, operator);
+  numberA = roundToDecimal(numberA,4);
   displaySection.textContent = numberA;
 }
 
@@ -68,6 +69,10 @@ function clearAll() {
   operator = "";
   numberToDisplay = "";
   displaySection.textContent = "0";
+}
+
+function roundToDecimal(numberToRound,decimalPlaces){
+  return +numberToRound.toFixed(decimalPlaces);
 }
 
 function add(numberA, numberB){
