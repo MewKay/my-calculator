@@ -20,7 +20,7 @@ equalButton.addEventListener("click", equalEvent);
 clearButton.addEventListener("click", clearAll);
 
 function displayDigit() {
-  if(numberA && !operator) {
+  if((numberA && !operator) || numberToDisplay === "0") {
     numberToDisplay="";
     numberA = 0;
   }
@@ -36,29 +36,37 @@ function operationEvent() {
     return;
   }
 
-  numberB = +numberToDisplay;
-  numberA = operate(numberA,numberB,operator);
+  operationHandler()
   operator = this.textContent;
-  displaySection.textContent = numberA;
   numberToDisplay = "";
 }
 
 function equalEvent() {
   if (!operator || !numberToDisplay) return;
 
-  numberB = +numberToDisplay;
-  numberA = operate(numberA, numberB, operator);
-  displaySection.textContent = numberA;
+  operationHandler();
   numberToDisplay = numberA.toString();
   operator = "";
   numberB = 0;
-}    
+}
+
+function operationHandler() {
+  if(operator === "/" && numberToDisplay === "0") {
+    clearAll();
+    displaySection.textContent = "Not gonna happen dude.";
+    return;
+  }
+
+  numberB = +numberToDisplay;
+  numberA = operate(numberA, numberB, operator);
+  displaySection.textContent = numberA;
+}
 
 function clearAll() {
   numberA = 0;
   numberB = 0;
   operator = "";
-  numberToDisplay = ""
+  numberToDisplay = "";
   displaySection.textContent = "0";
 }
 
